@@ -1,5 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR // referencing UnityEditor at all causes build failures. There is no workaround.
 using UnityEditor; // Handles
+#endif
 using UnityEngine.InputSystem;
 
 
@@ -91,6 +93,8 @@ public class CameraController: MonoBehaviour
         return;
     }
     
+    // UnityEditor namespace is removed from all builds - causing compiler failures ('Handles' is undefined). There is no workaround.
+    #if UNITY_EDITOR
     void OnRenderObject()
     {
         if (!drawOrbit) return;
@@ -112,6 +116,7 @@ public class CameraController: MonoBehaviour
         Handles.DrawWireDisc(orbit_point, originalTransform.up, orbit_radius);
         return;
     }
+    #endif
     
     // if it lags whenever you hold a key, you need to change the 'Interaction Mode' setting; minimize throttling for both
     private void TextInputCallback(char ch)
@@ -131,7 +136,7 @@ public class CameraController: MonoBehaviour
             }
             
             case 'r': // reset
-                angle = 0; elevation = 0; orbit_radius = 50;
+                angle = 0; elevation = 0; //orbit_radius = 50;
                 autoOrbit = false; auto_orbit_speed = 0;
                 orbit_point = originalPosition;
                 momentum = new Vector3(0,0,0);

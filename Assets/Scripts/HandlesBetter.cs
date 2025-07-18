@@ -1,6 +1,9 @@
 using UnityEngine;
+#if UNITY_EDITOR // referencing UnityEditor at all causes build failures. There is no workaround.
 using UnityEditor; // Handles
 using Unity.VisualScripting; // IsRightMouseButton
+// apparently VisualScripting is also excluded from all builds
+#endif
 
 
 public class HandlesBetter: MonoBehaviour
@@ -47,9 +50,9 @@ public class HandlesBetter: MonoBehaviour
         currentColor = defaultColor;
         isHovered = false;
         isFocused = false;
-        rotationSpeed = 64;
+        //rotationSpeed = 64;
         rotationDeltas = new(0,0);
-        friction = 1.0f;
+        //friction = 1.0f;
         
         mainCamera = Camera.main;
         renderer = GetComponent<Renderer>();
@@ -70,6 +73,7 @@ public class HandlesBetter: MonoBehaviour
     void OnMouseEnter() { isHovered = true; if(!hasMaterialColors) return; renderer.sharedMaterial.color = Color.lightGreen; }
     void OnMouseExit() { isHovered = false; if(!hasMaterialColors) return; renderer.sharedMaterial.color = originalMatColor; }
     
+    #if UNITY_EDITOR // UnityEditor namespace is removed from all builds - causing compiler failures ('Handles' is undefined). There is no workaround.
     void OnRenderObject()
     {
         currentColor = defaultColor;
@@ -101,7 +105,7 @@ public class HandlesBetter: MonoBehaviour
              Handles.Label(labelPosition, transform.position.ToString());
         else Handles.Label(labelPosition, transform.rotation.ToString());
     }
-    
+    #endif
     
     // called after all other rendering steps, except 'OnDrawGizmos'
     void OnGUI()
@@ -115,7 +119,8 @@ public class HandlesBetter: MonoBehaviour
                 case EventType.MouseDown: isFocused = isHovered; break;
                 case EventType.MouseDrag:
                 if (isFocused) {
-                    isEditingPosition = !Event.current.IsRightMouseButton();
+                    //isEditingPosition = !Event.current.IsRightMouseButton(); // 'IsRightMouseButton' requires VisualScripting import - which is editor-only
+                    isEditingPosition = (Event.current.button == 0); // 0/1 == left/right
                     if (isEditingPosition) { // modify position on left-click
                         if (!Event.current.shift) {
                             transform.position = mainCamera.ScreenToWorldPoint(new Vector3(

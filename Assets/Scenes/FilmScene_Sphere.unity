@@ -155,7 +155,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -179,7 +179,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 57.15522
+  field of view: 47.403915
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -194,7 +194,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &963194228
@@ -229,12 +229,12 @@ MonoBehaviour:
   trackObject: {fileID: 0}
   orbit_point: {x: 0, y: 0, z: 0}
   drawOrbit: 0
-  orbit_radius: 50
+  orbit_radius: 25
   angle: 0
   elevation: 0
-  applyMomentum: 0
-  speed: 0.25
-  friction: 1
+  applyMomentum: 1
+  speed: 0.1
+  friction: 0.75
   autoOrbit: 0
   auto_orbit_speed: 0
 --- !u!1 &1680112885
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 1680112887}
   - component: {fileID: 1680112886}
   - component: {fileID: 1680112893}
-  - component: {fileID: 1680112891}
+  - component: {fileID: 1680112895}
   - component: {fileID: 1680112894}
   m_Layer: 0
   m_Name: Sphere
@@ -348,25 +348,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1680112891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680112885}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f394e0981701848b4afc9e54d4d383, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFreeSpin: 1
-  rotationDeltas: {x: 0, y: 0}
-  rotationSpeed: 1
-  friction: 1
-  visibleAxes: 1
-  matchColliderRadius: 1
-  handleRadius: 5
 --- !u!114 &1680112893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,9 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02b93fca230f62e4490697baacf89616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationX: 0
-  rotationY: 0
-  rotationZ: 0
+  rotationX: 0.2
+  rotationY: -0.1
+  rotationZ: 0.4
   setRotation: 0
   resetSliders: 0
   resetRotation: 0
@@ -402,9 +383,28 @@ MonoBehaviour:
   linkedRotation: 1
   satellite_behavior: 1
   satellite_axis_cam: 1
-  satellite_orbit_speed: 0
-  orbit_speed_increment: 0
-  increment_as_multiplier: 0
+  satellite_orbit_speed: 1.5
+  orbit_speed_increment: 0.15
+  increment_as_multiplier: 1
+--- !u!114 &1680112895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680112885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df58a6ffde0c774d8c596ce9e25c0f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFreeSpin: 1
+  rotationDeltas: {x: 0, y: 0}
+  rotationSpeed: 4
+  friction: 0.5
+  visibleAxes: 1
+  matchColliderRadius: 1
+  handleRadius: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
