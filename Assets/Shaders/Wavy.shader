@@ -44,7 +44,9 @@ Shader "Wavy"
                 output.pos = UnityObjectToClipPos(vertex);
                 output.pos.y = output.pos.y + _magnitudeY * sin(2*3.14*_SinTime[1]+(output.pos.x * _frequencyY));
                 output.pos.x = output.pos.x + _magnitudeX * sin(2*3.14*_CosTime[0]+(output.pos.y * _frequencyX));
-                output.color.xyzw = fixed4(1-uv0.x, uv0.y, uv0.x, 1);
+                // output.color.xyzw = fixed4(1-uv0.x, uv0.y, uv0.x, 1);
+                output.color.xyzw = fixed4(abs(sin((1-uv0.x)*6.18f)*_SinTime[1]), abs(cos((uv0.y*2-uv0.x)*6.18f)*_SinTime[0])*0.25f, abs(cos((1-uv0.x)*6.18f)*_CosTime[1]), 1); // swirl
+                // output.color.xyzw = fixed4(abs(1-(uv0.x*2)), 0, abs(cos(uv0.x*6.18)), 1);
                 // output.color.xyzw = fixed4(output.pos.z, world_pos.z, 0, 1);
                 return output;
             }

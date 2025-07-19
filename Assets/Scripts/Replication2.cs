@@ -77,8 +77,8 @@ public class Replication2: MonoBehaviour
     void Fill(List<Vector3> offsetList)
     {
         cloneCount += offsetList.Count;
-        float scale = 0.5f;
-        float scaleDelta = (scale/offsetList.Count) * 0.5f;
+        float scale = 0.75f;
+        float scaleDelta = (scale/offsetList.Count) * 0.75f;
         foreach (Vector3 offset in offsetList) {
             CloneT newclone = Clone(offset.x, offset.y, offset.z);
             scale -= scaleDelta;
@@ -155,7 +155,7 @@ public class Replication2: MonoBehaviour
                 Replication2 replicator = clone.m_obj.GetComponent<Replication2>();
                 replicator.satellite_behavior = satellite_behavior;
                 replicator.satellite_axis_cam = satellite_axis_cam;
-                float increment = (increment_as_multiplier? ((I*satellite_orbit_speed) * orbit_speed_increment) : (I * orbit_speed_increment));
+                float increment = (increment_as_multiplier? (I*orbit_speed_increment) * ((0.5f*satellite_orbit_speed) + orbit_speed_increment) : (I*orbit_speed_increment));
                 replicator.satellite_orbit_speed = satellite_orbit_speed + increment;
             }
             if (satellite_behavior) {
