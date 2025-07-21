@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:Label text="This is a Label" display-tooltip-when-elided="true" style="color: rgb(255, 0, 0);" />
+        <ui:Button text="This is a Button" display-tooltip-when-elided="true" name="button" style="color: rgb(255, 0, 0);" />
+        <ui:Toggle label="Display the counter?" name="toggle" style="-unity-text-outline-color: rgb(255, 0, 0); color: rgb(255, 0, 0);" />
+        <ui:TextField picking-mode="Ignore" label="Text Field" name="input-message" value="filler text" style="color: rgb(255, 0, 0);" />
+    </ui:VisualElement>
+</ui:UXML>
