@@ -68,6 +68,7 @@ public class Replication2: MonoBehaviour
         DestroyImmediate(clone.GetComponent<RotationControls>());
         DestroyImmediate(clone.GetComponent<HandlesBetter>());
         //DestroyImmediate(clone.GetComponent<SphereCollider>());
+        DestroyImmediate(clone.GetComponent<ShaderControllerImgui>());
         
         //clone.GetComponent<HandlesBetter>().visibleAxes = false;
         clones.Add(clone); return clone;
@@ -128,7 +129,7 @@ public class Replication2: MonoBehaviour
     void Start()
     {
         if (isClone) return;
-        // MakeSatellites();
+        MakeSatellites();
     }
     
     public void Update()
@@ -168,8 +169,8 @@ public class Replication2: MonoBehaviour
         }
     }
     
-    void OnGUI()
+    /* void OnGUI()
     {
         if (GUILayout.Button("Make Satellites")) { MakeSatellites(); }
-    }
+    } */
 }

@@ -9,6 +9,7 @@ class ShaderControllerImgui: MonoBehaviour
     private Shader shader;
     private int propCount;
     
+    private bool isActive = true;
     // TODO: reset button
     
     void Start()
@@ -27,7 +28,14 @@ class ShaderControllerImgui: MonoBehaviour
     
     void OnGUI()
     {
-        GUILayout.Label(string.Format("ShaderControls: {0}", shader.name));
+        GUI.skin.button.normal.textColor = (isActive? Color.white : Color.grey);
+        GUI.skin.button.hover.textColor  = (isActive? Color.white : Color.grey);
+        if (GUILayout.Button(string.Format("ShaderControls: {0}", shader.name))) isActive = !isActive;
+        if (!isActive) return;
+        
+        GUIStyle sliderStyle = GUI.skin.horizontalSlider;
+        sliderStyle.normal.background = Texture2D.whiteTexture;
+        
         for (int I=0; I < propCount; ++I)
         {
             string propName = shader.GetPropertyName(I);

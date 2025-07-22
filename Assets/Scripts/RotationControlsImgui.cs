@@ -52,7 +52,7 @@ public class RotationControlsImgui: MonoBehaviour
     void OnGUI()
     {
         GUIStyle sliderStyle = GUI.skin.horizontalSlider;
-        sliderStyle.normal.background = Texture2D.whiteTexture; 
+        sliderStyle.normal.background = Texture2D.whiteTexture;
         
         // the length of the string somehow determines the length of all sliders. Unity is a mess
         GUILayout.Label("Rotation Controls");
