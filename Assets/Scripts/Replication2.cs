@@ -109,11 +109,9 @@ public class Replication2: MonoBehaviour
         // https://docs.unity3d.com/ScriptReference/MonoBehaviour.html
     }
     
-    void Start()
+    void MakeSatellites()
     {
-        if (isClone) return;
         linkedRotation = true;
-        
         float Xmax = 48;
         float spiralPeriod = 16;
         float spiralFrequency = ((2.0f * 3.14f) / spiralPeriod);
@@ -125,6 +123,12 @@ public class Replication2: MonoBehaviour
             CloneT baseclone = RecursiveClone(new Vector3((float)System.Math.Sin(Z)*0.025f, (float)System.Math.Cos(Z)*0.025f, 0), offsetList);
             baseclone.m_offset = new Vector3((float)System.Math.Sin(spiralFrequency*Z), (float)System.Math.Cos(spiralFrequency*Z), Z*ZoffsetHack);
         }
+    }
+    
+    void Start()
+    {
+        if (isClone) return;
+        // MakeSatellites();
     }
     
     public void Update()
@@ -162,5 +166,10 @@ public class Replication2: MonoBehaviour
                 clone.m_obj.transform.RotateAround(transform.position, satellite_axis, satellite_angle);
             }
         }
+    }
+    
+    void OnGUI()
+    {
+        if (GUILayout.Button("Make Satellites")) { MakeSatellites(); }
     }
 }

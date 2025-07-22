@@ -5,7 +5,7 @@ using UnityEditor; // Handles
 using UnityEngine.InputSystem;
 
 
-// attach this script to the scene's camera
+// don't attach to anything, just drop into hierarchy
 public class CameraController: MonoBehaviour
 {
     private Camera mainCamera;
@@ -173,6 +173,9 @@ public class CameraController: MonoBehaviour
             // auto_orbit_speed
             case '3': { autoOrbit = true; auto_orbit_speed -= 0.1f; if (auto_orbit_speed < -10.0f) auto_orbit_speed = -10.0f; } break;
             case '4': { autoOrbit = true; auto_orbit_speed += 0.1f; if (auto_orbit_speed >  10.0f) auto_orbit_speed =  10.0f; } break;
+            
+            // turn 180
+            case 'v': { angle = (angle + 180) % 360; } break;
             
             default: /* print(string.Format("unhandled keypress: {0}", ch)); */ break;
         }
