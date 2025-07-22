@@ -4,9 +4,9 @@ Shader "Wavy"
     {
         _magnitudeX("magnitude X", Range(-10,10)) = 0
         _magnitudeY("magnitude Y", Range(-32,32)) = 0
-        [Toggle] _ALTDEPTH("alt-depth", Integer) = 0
         _frequencyX("frequency X", Range(0, 1)) = 0.25
         _frequencyY("frequency Y", Range(0, 1)) = 0.25
+        [Toggle] _ALTDEPTH("alt-depth", Integer) = 0
     }
     
     SubShader
