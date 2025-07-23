@@ -10,7 +10,11 @@ class ShaderControllerImgui: MonoBehaviour
     private int propCount;
     
     private bool isActive = true;
-    // TODO: reset button
+    
+    private Material originalMaterial;
+    // hack to reset shader parameters (Unity rewrites material files whenever the value of a shader parameter changes)
+    void OnDisable() { if (originalMaterial == null) return; renderer.sharedMaterial = originalMaterial; }
+    void Reset() { renderer.sharedMaterial.CopyPropertiesFromMaterial(originalMaterial); }
     
     void Start()
     {
@@ -24,6 +28,8 @@ class ShaderControllerImgui: MonoBehaviour
             ShaderPropertyType propType = shader.GetPropertyType(I);
             print(string.Format("{1} (#{0}): <{2}>", I, shader.GetPropertyName(I), propType));
         }
+        
+        originalMaterial = new Material(renderer.sharedMaterial);
     }
     
     void OnGUI()
@@ -64,5 +70,8 @@ class ShaderControllerImgui: MonoBehaviour
                 default: break;
             }
         }
+        
+        GUI.skin.button.hover.textColor = Color.red;
+        if (GUILayout.Button("Reset")) Reset();
     }
 }
