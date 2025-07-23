@@ -3,20 +3,35 @@ using UnityEngine.Rendering; // ShaderPropertyType
 
 
 [ExecuteInEditMode]
-class ShaderControllerImgui: MonoBehaviour
+class ShaderControllerWithStyles: MonoBehaviour
 {
     new Renderer renderer;
     private Shader shader;
     private int propCount;
     
     private bool isActive = true;
+    public  GUIStyle sliderStyle;
+    private GUIStyle defaultStyle;
+    
+    void ResetSliderStyle() {
+        if (defaultStyle != null) {
+            sliderStyle = new GUIStyle(defaultStyle);
+            sliderStyle.name.Replace("(default)", "(custom)");
+        } else sliderStyle = null;
+    }
     
     // hack to reset shader parameters (Unity rewrites material files whenever the value of a shader parameter changes)
     private Material originalMaterial;
-    void OnDisable() { if (originalMaterial != null) renderer.sharedMaterial = originalMaterial; }
+    void OnDisable() {
+        if (originalMaterial != null) renderer.sharedMaterial = originalMaterial;
+        sliderStyle = null; defaultStyle = null;
+    }
+    
     void Reset() {
         if (renderer.sharedMaterial != originalMaterial) // not allowed to call CopyProperties when src/dest refer to the same object
             renderer.sharedMaterial.CopyPropertiesFromMaterial(originalMaterial);
+        ResetSliderStyle();
+        return;
     }
     
     
@@ -55,29 +70,14 @@ class ShaderControllerImgui: MonoBehaviour
         if (GUILayout.Button(string.Format("ShaderControls: {0}", shader.name))) isActive = !isActive;
         if (!isActive) return;
         
-        // these values persist forever once specified; commenting them out won't revert the changes
-        GUIStyle sliderStyle = GUI.skin.horizontalSlider;
-        sliderStyle.normal.background = Texture2D.whiteTexture;
-        sliderStyle.alignment = TextAnchor.LowerLeft;
-        sliderStyle.stretchWidth = false;
-        sliderStyle.stretchHeight = true;
-        sliderStyle.fixedWidth = 100;
-        sliderStyle.fixedHeight = 12;
-        
-        sliderStyle.margin.left = 10;
-        sliderStyle.margin.right= 10;
-        
-        sliderStyle.padding.top    = 0;
-        sliderStyle.padding.bottom = 0;
-        
-        /* sliderStyle.border.top = 0;
-        sliderStyle.border.bottom = 0; */
-        
-        // sliderStyle.margin.top = 5;
-        //sliderStyle.margin.bottom = 5;
-        
-        
-        
+        // initializing here because Imgui functions can only be called inside OnGUI
+        if (defaultStyle == null) { 
+            defaultStyle = new GUIStyle(GUI.skin.horizontalSlider);
+            defaultStyle.normal.background = Texture2D.grayTexture;
+            defaultStyle.name = string.Format("{0}_(default)", defaultStyle.name);
+        }
+        if (sliderStyle == null) { ResetSliderStyle(); }
+        GUI.skin.horizontalSlider = sliderStyle;
         
         for (int I=0; I < propCount; ++I)
         {
