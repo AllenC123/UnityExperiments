@@ -42,7 +42,8 @@ class ShaderControllerImgui: MonoBehaviour
         GUILayout.BeginHorizontal();
         GUILayout.Label(slidername);
         float sliderVal = GUILayout.HorizontalSlider(value, lowerlimit, upperlimit);
-        GUILayout.Label(System.Math.Round(sliderVal, 2).ToString().PadRight(4)); // glitchy behavior occurs when the number of digits displayed (after the decimal place) change
+        GUILayout.Label(System.Math.Round(sliderVal, 2).ToString().PadRight(6)); // glitchy behavior occurs when the number of digits displayed (after the decimal place) change
+        // don't forget to account for the decimal place and negative sign!
         GUILayout.EndHorizontal();
         return sliderVal;
     }

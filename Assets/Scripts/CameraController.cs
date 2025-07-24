@@ -24,8 +24,8 @@ public class CameraController: MonoBehaviour
     public Vector3 orbit_point;
     public bool drawOrbit = true;
     [Range(0.001f, 100.0f)] public float orbit_radius = 50.0f;
-    [Range(-360.0f, 360f)] public float angle = 0.0f;
-    [Range(-50.0f, 50.0f)] public float elevation = 0.0f;
+    [Range(-360.0f,360.0f)] public float angle = 0.0f;
+    [Range(-100.0f,100.0f)] public float elevation = 0.0f;
     
     Vector3 originalPosition;
     Vector3 momentum;
@@ -118,6 +118,16 @@ public class CameraController: MonoBehaviour
     }
     #endif
     
+    public void Reset()
+    {
+        angle = 0; elevation = 0; //orbit_radius = 50;
+        autoOrbit = false; auto_orbit_speed = 0;
+        orbit_point = originalPosition;
+        momentum = new Vector3(0,0,0);
+        angularMomentum = 0.0f;
+        trackObject = null;
+    }
+    
     // if it lags whenever you hold a key, you need to change the 'Interaction Mode' setting; minimize throttling for both
     private void TextInputCallback(char ch)
     {
@@ -136,12 +146,7 @@ public class CameraController: MonoBehaviour
             }
             
             case 'r': // reset
-                angle = 0; elevation = 0; //orbit_radius = 50;
-                autoOrbit = false; auto_orbit_speed = 0;
-                orbit_point = originalPosition;
-                momentum = new Vector3(0,0,0);
-                angularMomentum = 0.0f;
-                trackObject = null;
+                Reset();
             break;
             
             // movement
