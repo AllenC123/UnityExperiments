@@ -67,18 +67,13 @@ class ShaderControllerImgui: MonoBehaviour
         
         sliderStyle.margin.left = 10;
         sliderStyle.margin.right= 10;
-        
         sliderStyle.padding.top    = 0;
         sliderStyle.padding.bottom = 0;
         
-        /* sliderStyle.border.top = 0;
-        sliderStyle.border.bottom = 0; */
-        
-        // sliderStyle.margin.top = 5;
+        //sliderStyle.border.top = 0;
+        //sliderStyle.border.bottom = 0;
+        //sliderStyle.margin.top = 5;
         //sliderStyle.margin.bottom = 5;
-        
-        
-        
         
         for (int I=0; I < propCount; ++I)
         {
@@ -98,9 +93,22 @@ class ShaderControllerImgui: MonoBehaviour
                 // assume boolean; actual numeric parameters will probably be float
                 case ShaderPropertyType.Int: {
                     // C# doesn't have Int/Boolean conversions
-                    renderer.sharedMaterial.SetInteger( propName,
+                    /* renderer.sharedMaterial.SetInteger( propName,
                         (GUILayout.Toggle((renderer.sharedMaterial.GetInteger(propName) == 1), propName)? 1:0)
-                    );
+                    ); */
+                    
+                    // Shader doesn't actually update unless you use 'Enable/DisableKeyword'; 'SetInteger' only updates toggle-state
+                    if (GUILayout.Toggle((renderer.sharedMaterial.GetInteger(propName) == 1), propName)) {
+                        renderer.sharedMaterial.SetInteger(propName, 1);
+                        //renderer.sharedMaterial.EnableKeyword(propName); //prop-name doesn't work
+                        renderer.sharedMaterial.EnableKeyword( string.Format("{0}_ON",  propName));
+                        renderer.sharedMaterial.DisableKeyword(string.Format("{0}_OFF", propName));
+                    } else {
+                        renderer.sharedMaterial.SetInteger(propName, 0);
+                        renderer.sharedMaterial.EnableKeyword( string.Format("{0}_OFF", propName));
+                        renderer.sharedMaterial.DisableKeyword(string.Format("{0}_ON",  propName));
+                    }
+                    // Unity is a mess
                 } break;
                 
                 default: break;

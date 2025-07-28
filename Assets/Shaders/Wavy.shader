@@ -7,6 +7,7 @@ Shader "Wavy"
         _frequencyX("frequency X", Range(0, 1)) = 0.25
         _frequencyY("frequency Y", Range(0, 1)) = 0.25
         [Toggle] _ALTDEPTH("alt-depth", Integer) = 0
+        [Toggle] _TEXSWIRL("tex-swirl", Integer) = 0
     }
     
     SubShader
@@ -15,6 +16,7 @@ Shader "Wavy"
         {
             HLSLPROGRAM
             #pragma shader_feature_local _ALTDEPTH_ON _ALTDEPTH_OFF
+            #pragma shader_feature_local _TEXSWIRL_ON _TEXSWIRL_OFF
             
             #pragma vertex Vert
             #pragma fragment Frag
@@ -44,8 +46,12 @@ Shader "Wavy"
                 output.pos = UnityObjectToClipPos(vertex);
                 output.pos.y = output.pos.y + _magnitudeY * sin(2*3.14*_SinTime[1]+(output.pos.x * _frequencyY));
                 output.pos.x = output.pos.x + _magnitudeX * sin(2*3.14*_CosTime[0]+(output.pos.y * _frequencyX));
-                // output.color.xyzw = fixed4(1-uv0.x, uv0.y, uv0.x, 1);
+                #if _TEXSWIRL_ON
                 output.color.xyzw = fixed4(abs(sin((1-uv0.x)*6.18f)*_SinTime[1]), abs(cos((uv0.y*2-uv0.x)*6.18f)*_SinTime[0])*0.25f, abs(cos((1-uv0.x)*6.18f)*_CosTime[1]), 1); // swirl
+                #else
+                output.color.xyzw = fixed4(1-uv0.x, uv0.y, uv0.x, 1);
+                #endif
+                
                 // output.color.xyzw = fixed4(abs(1-(uv0.x*2)), 0, abs(cos(uv0.x*6.18)), 1);
                 // output.color.xyzw = fixed4(output.pos.z, world_pos.z, 0, 1);
                 return output;

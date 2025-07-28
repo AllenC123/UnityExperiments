@@ -253,7 +253,7 @@ MonoBehaviour:
   friction: 1
   autoOrbit: 0
   auto_orbit_speed: 0
---- !u!21 &1618512837
+--- !u!21 &1081298159
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -266,10 +266,13 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALTDEPTH_OFF
+  - _TEXSWIRL_OFF
   m_InvalidKeywords:
   - _GLOSSYREFLECTIONS_OFF
   - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   - _SPECULARHIGHLIGHTS_OFF
+  - _TEXSWIRL
+  - __TEXSWIRL_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -282,6 +285,7 @@ Material:
     m_TexEnvs: []
     m_Ints:
     - _ALTDEPTH: 0
+    - _TEXSWIRL: 0
     m_Floats:
     - _frequencyX: 0.1
     - _frequencyY: 0.25
@@ -304,6 +308,7 @@ GameObject:
   - component: {fileID: 1680112886}
   - component: {fileID: 1680112894}
   - component: {fileID: 1680112895}
+  - component: {fileID: 1680112896}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -355,7 +360,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1618512837}
+  - {fileID: 1081298159}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -432,6 +437,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 455c5ba439d113344ad1721267582ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1680112896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680112885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ced999c43618f4eba911e0e4d3f9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuY: 200
+  menuWidth: 180
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

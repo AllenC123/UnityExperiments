@@ -66,6 +66,7 @@ public class Replication2: MonoBehaviour
         DestroyImmediate(clone.GetComponent<Replication2>()); // avoid infinite duplication-loop (all clones call 'Start')
         // removing these from clones for better performance
         DestroyImmediate(clone.GetComponent<RotationControls>());
+        DestroyImmediate(clone.GetComponent<RotationControlsImgui>());
         DestroyImmediate(clone.GetComponent<HandlesBetter>());
         //DestroyImmediate(clone.GetComponent<SphereCollider>());
         DestroyImmediate(clone.GetComponent<ShaderControllerImgui>());
